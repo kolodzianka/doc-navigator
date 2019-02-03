@@ -1,8 +1,11 @@
 package pl.kolodzianka.docmvc.Entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -13,6 +16,10 @@ public class User {
     private Long userId;
     @Column(nullable = false, unique = true)
     private String userName;
+    @Column(name = "password")
+    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
+    private String password;
     @NotBlank(message = "Name is mandatory")
     private String name;
     @NotBlank(message = "Surname is mandatory")
@@ -30,16 +37,23 @@ public class User {
     public User() {
     }
 
-    public User(String userName, @NotBlank(message = "Name is mandatory") String name,
-                @NotBlank(message = "Surname is mandatory") String surname,
-                @Email(message = "Email should be valid") String email, Set<Role> role, Set<Document> documents, Set<Comment> comment) {
+    public User(String userName, String password, @NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Surname is mandatory") String surname, @Email(message = "Email should be valid") String email, Set<Role> role, Set<Document> documents, Set<Comment> comments) {
         this.userName = userName;
+        this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.role = role;
         this.documents = documents;
-        this.comments = comment;
+        this.comments = comments;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {

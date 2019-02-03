@@ -1,6 +1,9 @@
 package pl.kolodzianka.docmvc.Entity;
 
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -23,8 +26,10 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
+    @CreatedBy
     private User author;
 
+    @CreatedDate
     private Date createDate;
 
     public Comment() {

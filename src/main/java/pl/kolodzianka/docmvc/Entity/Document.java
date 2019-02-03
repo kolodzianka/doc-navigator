@@ -3,6 +3,9 @@ package pl.kolodzianka.docmvc.Entity;
 import javassist.bytecode.ByteArray;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
@@ -18,14 +21,14 @@ public class Document {
     private long docId;
 
     @Column(nullable = false)
-    private String name;
-
-    private String description;
+    private String title;
 
     @Past
+    @CreatedDate
     private Date createdDate;
 
     @PastOrPresent
+    @LastModifiedDate
     private Date modificationDate;
 
     @OneToMany(mappedBy = "document")
@@ -34,6 +37,7 @@ public class Document {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @CreatedBy
     private User user;
 
     @Lob
@@ -42,14 +46,21 @@ public class Document {
     public Document() {
     }
 
-
+    public Document(String title, @Past Date createdDate, @PastOrPresent Date modificationDate,
+                    Set<Comment> comments, User user, ByteArray pdfFile) {
+        this.title = title;
+        this.createdDate = createdDate;
+        this.modificationDate = modificationDate;
+        this.comments = comments;
+        this.user = user;
+        this.pdfFile = pdfFile;
+    }
 
     @Override
     public String toString() {
         return "Document{" +
                 "docId=" + docId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", name='" + title + '\'' +
                 ", createdDate=" + createdDate +
                 ", modificationDate=" + modificationDate +
                 ", comments=" + comments +
@@ -67,19 +78,11 @@ public class Document {
     }
 
     public String getName() {
-        return name;
+        return title;
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        this.title = name;
     }
 
     public Date getCreatedDate() {
