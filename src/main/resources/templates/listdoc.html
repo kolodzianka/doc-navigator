@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add your document</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 </head>
 <body>
 
 <h1>Your documents:</h1>
 <div>
     <table>
+        <tr>
+            <th>Title</th>
+            <th>Data</th>
+            <th>File</th>
+        </tr>
+        <tr th:each="doc : ${documentList}">
+            <td th:text="*{doc.getTitle()}" />
+            <td th:text="*{doc.getCreatedDate()}" />
+            <td th:text="*{doc.getUser()}" />
+        </tr>
 
     </table>
 </div>

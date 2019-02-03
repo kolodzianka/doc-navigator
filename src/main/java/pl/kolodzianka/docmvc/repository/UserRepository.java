@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository;
 import pl.kolodzianka.docmvc.Entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository <User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    public User findUserByUserName(String userName);
+
 }
