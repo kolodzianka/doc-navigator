@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kolodzianka.docmvc.Entity.Document;
+import pl.kolodzianka.docmvc.Entity.User;
 import pl.kolodzianka.docmvc.service.UserService;
 
 
@@ -22,20 +23,19 @@ public class ViewController {
         return "home";
     }
 
-    @RequestMapping("/home")
-    public String startPage() {
-        return "home";
-    }
 
     @GetMapping("/adduser")
-    public String addUser() {
+    public String addUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
        return "adduser";
     }
 
-    @GetMapping("/savedoc")
+    @GetMapping("/home")
     public String saveDoc(Model model) {
         Document document = new Document();
-        return "savedoc";
+        model.addAttribute("document", document);
+        return "home";
     }
 
     @GetMapping("/listdoc")
