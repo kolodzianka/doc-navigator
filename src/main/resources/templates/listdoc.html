@@ -15,10 +15,10 @@
             <th>Data</th>
             <th>Author</th>
         </tr>
-        <tr th:each="doc : ${documentList}">
-            <td th:text="*{doc.getTitle()}" />
-            <td th:text="*{doc.getCreatedDate()}" />
-            <td th:text="*{doc.getAuthor()}" />
+        <tr th:each="document : ${documentList}">
+            <td th:text="*{document.getTitle()}" />
+            <td th:text="*{document.getCreatedDate()}" />
+            <td th:text="*{document.getAuthor()}" />
         </tr>
 
     </table>

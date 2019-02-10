@@ -42,16 +42,16 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping("/home")
-    public String home (){
-        return "home";
-    }
 
     @GetMapping("/home")
     public String goToDocList(Model model){
         return "listdoc";
     }
 
+    @PostMapping("/home")
+    public String logOut(Model model){
+        return "login";
+    }
 
 
 
