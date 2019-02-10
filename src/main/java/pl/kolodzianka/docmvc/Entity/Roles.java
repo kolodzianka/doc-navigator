@@ -3,26 +3,28 @@ package pl.kolodzianka.docmvc.Entity;
 import javax.persistence.*;
 
 @Entity
-public class Role {
+public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roleId;
 
+    private String rola;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    public Role() {
+    public Roles() {
     }
 
-    public Role(User user) {
-        this.user = user;
+    public Roles(String rola) {
+        this.rola = rola;
     }
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "Roles{" +
                 "roleId=" + roleId +
                 ", user=" + user +
                 '}';

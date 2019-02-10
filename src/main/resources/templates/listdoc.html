@@ -13,15 +13,20 @@
         <tr>
             <th>Title</th>
             <th>Data</th>
-            <th>File</th>
+            <th>Author</th>
         </tr>
         <tr th:each="doc : ${documentList}">
             <td th:text="*{doc.getTitle()}" />
             <td th:text="*{doc.getCreatedDate()}" />
-            <td th:text="*{doc.getUser()}" />
+            <td th:text="*{doc.getAuthor()}" />
         </tr>
 
     </table>
+
+    <br>
+    <input type="button"  onclick="location.href='/adddocument.html'" value="Add new document" >
+    <br>
+    <input type="button"  onclick="location.href='/home.html'" value="Go home" >
 </div>
 
 </body>

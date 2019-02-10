@@ -6,24 +6,21 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
-    <label for="userName">Username</label>
-    <input type="text" th:field="*{userName}" id="userName" placeholder="Username">
-    <!--<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>-->
+<form th:action="@{/adduser}" th:object="${user}" method="post">
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+    <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
     <br>
     <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <input type="text" th:field="*{name}" id="name">
     <!--<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
 
     <br>
     <label for="surname">Surname</label>
-    <input type="text" th:field="*{surname}" id="surname" placeholder="Surame">
+    <input type="text" th:field="*{surname}" id="surname">
     <!--<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>-->
     <br>
-    <label for="email">Email</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="Email">
-    <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
-    <br>
+
     <label for="password">Password:</label>
     <input type="password" th:field="*{password}" id="password">
     <br>

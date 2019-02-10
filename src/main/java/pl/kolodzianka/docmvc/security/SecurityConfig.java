@@ -14,20 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    //    protected void configure(HttpSecurity httpSecurity) throws Exception {
-////        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
-////                .authorizeRequests().antMatchers("/console/**").permitAll();
-////        httpSecurity.csrf().disable();
-////        httpSecurity.headers().frameOptions().disable();
-////    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().antMatchers("/").permitAll();
+        httpSecurity.csrf().disable();
     }
-//
+
     @Autowired
 public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("Anna")
+        auth.inMemoryAuthentication().withUser("Anna@gmail.com")
         .password("$2a$10$hVxAAjiPeVBSnp5qdEnsUex1pxJ4og4.QP8DBSxEBn2OLb5EJDxOy")
         .roles("Admin")
         .and()

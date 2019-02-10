@@ -9,10 +9,10 @@
 <h1>Welcome!</h1>
 
 <p>Please Log In: </p>
-<form action="home.html" th:action="@{/home}" th:object="${user}" method="post">
+<form action="#" th:action="@{/home}" th:object="${user}" method="post">
 
-    <label for="username">Username:</label>
-    <input type="text" th:field="*{userName}" id="username"/>
+    <label for="email">Email</label>
+    <input type="email" th:field="*{email}" id="email"/>
 
     <br>
     <label for="password">Password:</label>

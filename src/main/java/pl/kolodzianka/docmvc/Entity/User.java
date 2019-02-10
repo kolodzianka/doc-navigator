@@ -14,8 +14,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    @Column(nullable = false, unique = true)
-    private String userName;
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
@@ -26,10 +24,12 @@ public class User {
     private String surname;
     @Email(message = "Email should be valid")
     private String email;
-    @OneToMany(mappedBy = "user")
+//    @OneToMany(mappedBy = "user")
+//    @Column
+//    private Set<Roles> roles;
     @Column
-    private Set<Role> role;
-    @OneToMany(mappedBy = "user")
+    private String roles;
+    @OneToMany(mappedBy = "author")
     private Set<Document> documents;
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments;
@@ -37,15 +37,36 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String password, @NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Surname is mandatory") String surname, @Email(message = "Email should be valid") String email, Set<Role> role, Set<Document> documents, Set<Comment> comments) {
-        this.userName = userName;
+    public User(String password, @NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Surname is mandatory") String surname, @Email(message = "Email should be valid") String email, String roles, Set<Document> documents, Set<Comment> comments) {
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.role = role;
+        this.roles = roles;
         this.documents = documents;
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                ", documents=" + documents +
+                ", comments=" + comments +
+                '}';
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public String getPassword() {
@@ -54,14 +75,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getName() {
@@ -88,13 +101,13 @@ public class User {
         this.email = email;
     }
 
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
+//    public Set<Roles> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Roles> roles) {
+//        this.roles = roles;
+//    }
 
     public Set<Document> getDocuments() {
         return documents;

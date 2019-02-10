@@ -2,22 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <title>Your account</title>
 </head>
 <body>
-<h1>Welcome!</h1>
 
-<form action="listdoc.html" th:action="@{/listdoc}" th:object="${document}" method="post">
+<p>Welcome! </p>
 
-    <label for="title">Title:</label>
-    <input type="text" th:field="*{title}" id="title"/>
+<input type="button"  onclick="location.href='/listdoc.html'" value="Document List" >
+<br>
+<input type="button"  onclick="location.href='/login.html'" value="Log out" >
 
-    <br>
-    <label for="pdffile">PDF file:</label>
-    <input type="file" th:field="*{pdfFile}" id="pdffile"/>
-    <br>
-    <input type="submit" value="Add Document">
-</form>
 </body>
 </html>

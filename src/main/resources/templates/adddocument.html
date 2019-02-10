@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1>Welcome!</h1>
+
+<form action="listdoc.html" th:action="@{/listdoc}" th:object="${document}" method="post">
+
+    <label for="title">Title:</label>
+    <input type="text" th:field="*{title}" id="title"/>
+
+    <br>
+    <label for="pdffile">PDF file:</label>
+    <input type="file" th:field="*{pdfFile}" id="pdffile"/>
+    <br>
+    <input type="submit" value="Add Document">
+</form>
+</body>
+</html>

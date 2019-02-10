@@ -3,11 +3,14 @@ package pl.kolodzianka.docmvc.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.kolodzianka.docmvc.Entity.Roles;
 import pl.kolodzianka.docmvc.Entity.User;
 import pl.kolodzianka.docmvc.repository.UserRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -15,9 +18,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @Transactional
     public void create (User user){
+        String rola = "User";
+        user.setRoles(rola);
         userRepository.saveAndFlush(user);
+        System.out.println(user);
     }
 
     @Transactional(readOnly = true)
@@ -31,10 +39,9 @@ public class UserService {
     }
 
     @Transactional
-    public Optional<User> findBuUserName (String userName){
-        return Optional.ofNullable(userRepository.findUserByUserName(userName));
+    public User findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
     }
-
 
     @Transactional
     public void deleteAll (){

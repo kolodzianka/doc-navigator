@@ -38,7 +38,7 @@ public class Document {
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @CreatedBy
-    private User user;
+    private User author;
 
     @Lob
     private ByteArray pdfFile;
@@ -47,12 +47,12 @@ public class Document {
     }
 
     public Document(String title, @Past Date createdDate, @PastOrPresent Date modificationDate,
-                    Set<Comment> comments, User user, ByteArray pdfFile) {
+                    Set<Comment> comments, User author, ByteArray pdfFile) {
         this.title = title;
         this.createdDate = createdDate;
         this.modificationDate = modificationDate;
         this.comments = comments;
-        this.user = user;
+        this.author = author;
         this.pdfFile = pdfFile;
     }
 
@@ -64,7 +64,7 @@ public class Document {
                 ", createdDate=" + createdDate +
                 ", modificationDate=" + modificationDate +
                 ", comments=" + comments +
-                ", user=" + user +
+                ", author=" + author +
                 ", pdfFile=" + pdfFile +
                 '}';
     }
@@ -117,12 +117,12 @@ public class Document {
         this.comments = comments;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public ByteArray getPdfFile() {

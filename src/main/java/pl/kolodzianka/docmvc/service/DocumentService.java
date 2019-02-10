@@ -8,6 +8,7 @@ import pl.kolodzianka.docmvc.repository.DocumentRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DocumentService {
@@ -19,9 +20,9 @@ public class DocumentService {
     public void create (Document document){
         documentRepository.save(document);
     }
-    @Transactional(readOnly = true)
-    public List<Document> findAll() {
-        return (List<Document>) documentRepository.findAll();
+    @Transactional
+    public Set<Document> findAll() {
+        return (Set<Document>) documentRepository.findAll();
     }
 
     @Transactional
