@@ -58,6 +58,11 @@ public class UserService {
         return userRepository.count();
     }
 
+    @Transactional
+    public User findByName(String name){
+       return userRepository.findByName(name);
+    }
+
 
 
 

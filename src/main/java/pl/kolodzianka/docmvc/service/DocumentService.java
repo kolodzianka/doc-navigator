@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.kolodzianka.docmvc.Entity.Document;
 import pl.kolodzianka.docmvc.repository.DocumentRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,11 +19,12 @@ public class DocumentService {
 
     @Transactional
     public void create (Document document){
+        document.setCreatedDate(new Date());
         documentRepository.save(document);
     }
     @Transactional
-    public Set<Document> findAll() {
-        return (Set<Document>) documentRepository.findAll();
+    public List<Document> findAll() {
+        return (List<Document>) documentRepository.findAll();
     }
 
     @Transactional

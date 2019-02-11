@@ -8,7 +8,7 @@
 <body>
 <h1>Welcome!</h1>
 
-<form action="listdoc.html" th:action="@{/listdoc}" th:object="${document}" method="post">
+<form action="#" th:action="@{/document/listdoc}" th:object="${document}" method="post" enctype="multipart/form-data">
 
     <label for="title">Title:</label>
     <input type="text" th:field="*{title}" id="title"/>

@@ -13,35 +13,39 @@ import pl.kolodzianka.docmvc.service.UserService;
 public class UserController {
 
     @Autowired
-    private final UserService userService =new UserService();
+    private final UserService userService = new UserService();
 
     @GetMapping("/login")
-    public String loginModel(Model model){
+    public String loginModel(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute ("user") User user, BindingResult result){
-        if (result.hasErrors()){
-            return "login";
-        }
+    public String login(Model model) {
+        model.addAttribute("user", new User());
         return "home";
     }
 
+    // Login form with error
+    @RequestMapping("/login-error.html")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login.html";
+    }
+
     @GetMapping("/adduser")
-    public String createUser(Model model){
-        model.addAttribute("user",new User());
+    public String createUser(Model model) {
+        model.addAttribute("user", new User());
         return "adduser";
     }
 
     @PostMapping("/adduser")
-    public String addUser (@ModelAttribute("user") User user){
+    public String addUser(@ModelAttribute("user") User user) {
         System.out.println(user);
         userService.create(user);
         return "login";
     }
-
 
     @GetMapping("/home")
     public String goToDocList(Model model){
@@ -50,10 +54,8 @@ public class UserController {
 
     @PostMapping("/home")
     public String logOut(Model model){
-        return "login";
+        model.addAttribute("user", new User());
+        return "home";
     }
 
-
-
-
-    }
+}
