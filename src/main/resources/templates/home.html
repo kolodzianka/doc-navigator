@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Your account</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+
 </head>
 <body>
-
-<p>Welcome! <span sec:authentication="name">Bob</span></p>
+<div>
+<h4>Welcome </h4>
 
 <input type="button"  onclick="location.href='/document/listdoc'" value="Document List" >
 <br>
 <input type="button"  onclick="location.href='/login'" value="Log out" >
-
+</div>
 </body>
 </html>

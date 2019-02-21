@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
@@ -41,13 +42,13 @@ public class Document {
     private User author;
 
     @Lob
-    private ByteArray pdfFile;
+    private MultipartFile pdfFile;
 
     public Document() {
     }
 
     public Document(String title, @Past Date createdDate, @PastOrPresent Date modificationDate,
-                    Set<Comment> comments, User author, ByteArray pdfFile) {
+                    Set<Comment> comments, User author, MultipartFile pdfFile) {
         this.title = title;
         this.createdDate = createdDate;
         this.modificationDate = modificationDate;
@@ -125,11 +126,11 @@ public class Document {
         this.author = author;
     }
 
-    public ByteArray getPdfFile() {
+    public MultipartFile getPdfFile() {
         return pdfFile;
     }
 
-    public void setPdfFile(ByteArray pdfFile) {
+    public void setPdfFile(MultipartFile pdfFile) {
         this.pdfFile = pdfFile;
     }
 }

@@ -1,11 +1,12 @@
 package pl.kolodzianka.docmvc.Entity;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,9 +15,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
+    @Column
+    @UniqueElements(message = "Username is not unique.")
+    @NotBlank
+    private String username;
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+    @NotBlank(message = "*Please provide your password")
     private String password;
     @NotBlank(message = "Name is mandatory")
     private String name;
@@ -24,11 +29,10 @@ public class User {
     private String surname;
     @Email(message = "Email should be valid")
     private String email;
-//    @OneToMany(mappedBy = "user")
-//    @Column
-//    private Set<Roles> roles;
     @Column
-    private String roles;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<Role> roles;
     @OneToMany(mappedBy = "author")
     private Set<Document> documents;
     @OneToMany(mappedBy = "author")
@@ -37,7 +41,8 @@ public class User {
     public User() {
     }
 
-    public User(String password, @NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Surname is mandatory") String surname, @Email(message = "Email should be valid") String email, String roles, Set<Document> documents, Set<Comment> comments) {
+    public User(@UniqueElements(message = "Username is not unique.") @NotBlank String username, @Length(min = 5, message = "*Your password must have at least 5 characters") @NotBlank(message = "*Please provide your password") String password, @NotBlank(message = "Name is mandatory") String name, @NotBlank(message = "Surname is mandatory") String surname, @Email(message = "Email should be valid") String email, List<Role> roles, Set<Document> documents, Set<Comment> comments) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
@@ -51,6 +56,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -61,14 +67,20 @@ public class User {
                 '}';
     }
 
-
-
-    public String getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -102,14 +114,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public Set<Roles> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Roles> roles) {
-//        this.roles = roles;
-//    }
 
     public Set<Document> getDocuments() {
         return documents;

@@ -1,7 +1,9 @@
 package pl.kolodzianka.docmvc.controller;
 
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import java.security.Principal;
 @RequestMapping("/document")
 public class DocumentController {
 
+    private final org.slf4j.Logger LOG = LoggerFactory.getLogger(DocumentController.class);
 
     @Autowired
     private final DocumentService documentService = new DocumentService();
@@ -36,14 +39,14 @@ public class DocumentController {
     }
 
     @PostMapping("/listdoc")
-    public String addDoc (@ModelAttribute("document") Document document, Model model, Principal principal){
+    public String addDoc (@ModelAttribute("document") Document document, Model model, @AuthenticationPrincipal Principal principal){
         User author = new User();
         author = userService.findByName(principal.getName());
         document.setAuthor(author);
         documentService.create(document);
         model.addAttribute("documentList", documentService.findAll());
         System.out.println(document);
-        return "listdoc";
+        return "document/listdoc";
     }
 
     @GetMapping("/listdoc")
