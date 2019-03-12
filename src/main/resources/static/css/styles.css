@@ -50,6 +50,9 @@ div {
     background-blend-mode: lighten;
 
 }
+body {
+    position: center;
+}
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.Set;
 
@@ -42,13 +43,13 @@ public class Document {
     private User author;
 
     @Lob
-    private MultipartFile pdfFile;
+    private byte[] pdfFile;
 
     public Document() {
     }
 
     public Document(String title, @Past Date createdDate, @PastOrPresent Date modificationDate,
-                    Set<Comment> comments, User author, MultipartFile pdfFile) {
+                    Set<Comment> comments, User author, byte[] pdfFile) {
         this.title = title;
         this.createdDate = createdDate;
         this.modificationDate = modificationDate;
@@ -126,11 +127,11 @@ public class Document {
         this.author = author;
     }
 
-    public MultipartFile getPdfFile() {
+    public byte[] getPdfFile() {
         return pdfFile;
     }
 
-    public void setPdfFile(MultipartFile pdfFile) {
+    public void setPdfFile(byte[] pdfFile) {
         this.pdfFile = pdfFile;
     }
 }

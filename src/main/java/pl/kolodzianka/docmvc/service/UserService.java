@@ -1,5 +1,7 @@
 package pl.kolodzianka.docmvc.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +18,17 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+
 
 
     @Transactional
     public void create (User user){
-        user.getRoles().add(Role.ROLE_USER);
-        userRepository.saveAndFlush(user);
+        //user.getRoles().add(Role.ROLE_USER);
+        userRepository.save(user);
         System.out.println(user);
+        logger.info("User created.");
     }
 
     @Transactional(readOnly = true)

@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kolodzianka.docmvc.Entity.User;
-import pl.kolodzianka.docmvc.security.SecurityService;
 import pl.kolodzianka.docmvc.service.UserService;
 
-import java.security.Principal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,10 +23,6 @@ public class LoginController {
     private UserService userService;
 
 
-    @Autowired
-    private SecurityService securityService;
-
-
     @GetMapping("/login")
     public String loginModel(Model model) {
         model.addAttribute("user", new User());
@@ -36,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(Model model, Principal principal) {
+    public String login(Model model) {
         model.addAttribute("user", new User());
 
         LOG.log(Level.INFO,"Log success");
@@ -58,9 +52,9 @@ public class LoginController {
 
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
         userService.create(user);
-        securityService.login(user.getUsername(),user.getPassword());
+        LOG.log(Level.INFO,"User created");
+
         return "login";
     }
 }
