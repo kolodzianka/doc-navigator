@@ -42,39 +42,39 @@ public class DocumentController {
     }
 
 
-    @GetMapping("/adddocument")
-    public String createDoc(Model model) {
-        Document document = new Document();
-        model.addAttribute("document", document);
-        return "adddocument";
-    }
+//    @GetMapping("/adddocument")
+//    public String createDoc(Model model) {
+//        Document document = new Document();
+//        model.addAttribute("document", document);
+//        return "adddocument";
+//    }
 
     @PostMapping("/adddocument")
-    public String addDoc(@RequestParam("pdf") MultipartFile file, RedirectAttributes redirectAttributes,
-                         @ModelAttribute Document document, Model model, BindingResult bindingResult) throws IOException {
-        Date date = new Date();
-        if (file.isEmpty()) {
+    public String addDoc(@RequestParam("pdffile") MultipartFile file, @RequestParam ("title") String title, RedirectAttributes redirectAttributes,
+                          Model model, BindingResult bindingResult) throws IOException {
+
+        if (file.isEmpty() ) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return "redirect:uploadStatus";
         }
 
+        Document document = new Document();
 
-        //Blob blob = Hibernate.getLobCreator(hibernateFactory.getCurrentSession()).createBlob(file.getBytes());
+        Date date = new Date();
 
-        byte[] bytes = file.getBytes();
+            document.setCreatedDate(date);
+            document.setPdfFile(file.getBytes());
+            document.setName(title);
+            documentService.create(document);
 
-        document.setCreatedDate(date);
-        document.setPdfFile(bytes);
-        document.setName(file.getOriginalFilename());
-        documentService.create(document);
-
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            redirectAttributes.addFlashAttribute("message",
+                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
 
-        model.addAttribute("documentList", documentService.findAll());
-        LOG.info("Add document " + document.getName());
-        return "document/listdoc";
+            model.addAttribute("documentList", documentService.findAll());
+            LOG.info("Add document " + document.getName());
+            return "document/listdoc";
+
     }
 
     @PostMapping("/listdoc")
