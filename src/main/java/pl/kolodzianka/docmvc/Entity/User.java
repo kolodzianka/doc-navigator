@@ -16,7 +16,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
     @Column
-    @UniqueElements(message = "Username is not unique.")
     @NotBlank
     private String username;
     @Column(name = "password")

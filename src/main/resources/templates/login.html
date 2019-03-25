@@ -1,27 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+layout:decorator="layout/default">
+<head lang="pl">
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
-
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>-->
+    <link href="webjars/materializecss/0.97.3/css/materialize.css"
+          type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 
 
-<div>
+<div class="row" layout:fragment="content">
 
 <h1>Welcome!</h1>
 <p>Please Log In: </p>
 
 <form action="#" th:action="@{/login}" th:object="${user}" method="post">
-    <!--/*@thymesVar id="error" type=""*/-->
-    <div th:if="${param.error}" class="alert alert-error">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}" class="alert alert-success">
-        You have been logged out.
-    </div>
 
     <label for="username">Username</label>
     <br>
@@ -39,7 +34,8 @@
 <br>
 <a href="adduser.html" th:href="@{/adduser}">Register now!</a>
 </div>
-
+<script src="webjars/jquery/3.3.1/jquery.js"></script>
+<script src="webjars/materializecss/0.97.3/js/materialize.js"></script>
 
 </body>
 </html>
